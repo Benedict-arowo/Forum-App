@@ -43,12 +43,11 @@ app.use(
 	session({
 		secret: process.env.COOKIE_SECRET as string,
 		resave: false,
-		saveUninitialized: true,
-		cookie: { secure: false },
+		saveUninitialized: false,
 	})
 );
 app.use(express.json({ limit: "100mb" }));
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser());
 const specs = swaggerJsdoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 

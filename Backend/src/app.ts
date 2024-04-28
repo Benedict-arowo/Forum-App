@@ -39,13 +39,13 @@ const corsOptions = {
 
 app.use(morgan("dev"));
 app.use(cors(corsOptions));
-app.use(
-	session({
-		secret: process.env.COOKIE_SECRET as string,
-		resave: false,
-		saveUninitialized: false,
-	})
-);
+// app.use(
+// 	session({
+// 		secret: process.env.COOKIE_SECRET as string,
+// 		resave: false,
+// 		saveUninitialized: false,
+// 	})
+// );
 app.use(express.json({ limit: "100mb" }));
 app.use(cookieParser());
 const specs = swaggerJsdoc(options);

@@ -64,7 +64,7 @@ export const jwt_generator = async (payload: props, res: Response) => {
 		signed: true,
 		httpOnly: true,
 		maxAge: REFRESH_TOKEN_EXIPIRY,
-		secure: true,
+		secure: false,
 		path: "/",
 		sameSite: "lax"
 	});
@@ -73,7 +73,7 @@ export const jwt_generator = async (payload: props, res: Response) => {
 		maxAge: ACCESS_TOKEN_EXIPIRY,
 		httpOnly: false,
 		signed: true,
-		secure: true,
+		secure: false,
 		path: "/",
 		sameSite: "lax"
 	});

@@ -64,12 +64,16 @@ export const jwt_generator = async (payload: props, res: Response) => {
 		signed: true,
 		httpOnly: true,
 		maxAge: REFRESH_TOKEN_EXIPIRY,
+		path: "/",
+		sameSite: "lax",
 	});
 
 	res.cookie("Authorization", `Bearer ${accessToken}`, {
 		maxAge: ACCESS_TOKEN_EXIPIRY,
 		httpOnly: false,
 		signed: true,
+		path: "/",
+		sameSite: "lax",
 	});
 
 	return;
@@ -166,6 +170,7 @@ export const createUser = async (user: UserBody, res: Response) => {
 
 		return newUser;
 	} catch (error: any) {
+		console.log(error);
 		if (error.code === "P2003")
 			throw new CustomError(
 				ReasonPhrases.INTERNAL_SERVER_ERROR,

@@ -60,24 +60,43 @@ export const jwt_generator = async (payload: props, res: Response) => {
 	//     httpOnly: true
 	// })
 
-	res.cookie("RefreshToken", refreshToken, {
-		// signed: true,
-		httpOnly: true,
-		maxAge: REFRESH_TOKEN_EXIPIRY,
-		path: "/",
-		sameSite: "none",
-		secure: true
-	});
+	if (process.env.NODE_ENV?.toString() === "PRODUCTION") {
+		res.cookie("RefreshToken", refreshToken, {
+			maxAge: REFRESH_TOKEN_EXIPIRY,
+			httpOnly: true,
+			signed: true,
+			secure: true,
+			sameSite: "none",
+			path: "/",
+		});
 
-	res.cookie("Authorization", `Bearer ${accessToken}`, {
-		maxAge: ACCESS_TOKEN_EXIPIRY,
-		httpOnly: false,
-		// signed: true,
-		path: "/",
-		sameSite: "none",
-		secure: true
-	});
+		res.cookie("Authorization", `Bearer ${accessToken}`, {
+			maxAge: REFRESH_TOKEN_EXIPIRY,
+			httpOnly: true,
+			signed: true,
+			secure: true,
+			sameSite: "none",
+			path: "/",
+		});
+	} else {
+		res.cookie("RefreshToken", refreshToken, {
+			signed: true,
+			httpOnly: true,
+			maxAge: REFRESH_TOKEN_EXIPIRY,
+			path: "/",
+			sameSite: "strict",
+			secure: false,
+		});
 
+		res.cookie("Authorization", `Bearer ${accessToken}`, {
+			maxAge: ACCESS_TOKEN_EXIPIRY,
+			httpOnly: false,
+			signed: true,
+			path: "/",
+			sameSite: "strict",
+			secure: false,
+		});
+	}
 	return;
 };
 

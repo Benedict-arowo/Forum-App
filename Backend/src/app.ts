@@ -47,7 +47,7 @@ app.use(cors(corsOptions));
 // 	})
 // );
 app.use(express.json({ limit: "100mb" }));
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 const specs = swaggerJsdoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 

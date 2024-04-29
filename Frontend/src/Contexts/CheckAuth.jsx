@@ -16,34 +16,35 @@ const CheckAuth = ({ children }) => {
 		(async () => {
 			setIsLoading(true);
 			try {
-				if (accessToken) {
-					let token = accessToken.match(/^s:(.*)\..*$/)[1];
-					let { id: userId } = jwt_decode(token);
+				// console.log(Cookies.get("Authorization"));
 
-					const {
-						data: {
-							data: { id, username, profilePicture, role },
-						},
-						response,
-					} = await CustomFetch({
-						url: `user/${userId}`,
-						options: {
-							method: "GET",
-						},
-						returnResponse: true,
-					});
+				// if (accessToken) {
+				// let token = accessToken.match(/^s:(.*)\..*$/)[1];
+				// let { id: userId } = jwt_decode(token);
 
-					if (!response.ok)
-						throw new Error("Error while trying to login.");
-					setUser({
-						id,
-						username,
-						profilePicture,
-						role,
-						isAuthenticated: true,
-						isLoading: false,
-					});
-				}
+				const {
+					data: {
+						data: { id, username, profilePicture, role },
+					},
+					response,
+				} = await CustomFetch({
+					url: `active`,
+					options: {
+						method: "GET",
+					},
+					returnResponse: true,
+				});
+
+				if (!response.ok)
+					throw new Error("Error while trying to login.");
+				setUser({
+					id,
+					username,
+					profilePicture,
+					role,
+					isAuthenticated: true,
+					isLoading: false,
+				});
 			} catch (error) {
 				setUser({
 					id: "",

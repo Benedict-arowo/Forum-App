@@ -60,18 +60,44 @@ export const jwt_generator = async (payload: props, res: Response) => {
 	//     httpOnly: true
 	// })
 
-	res.cookie("RefreshToken", refreshToken, {
-		signed: true,
-		httpOnly: true,
-		maxAge: REFRESH_TOKEN_EXIPIRY,
-	});
+	if (process.env.NODE_ENV?.toString() === "PRODUCTION") {
+		console.log("PRODUCTION");
+		res.cookie("RefreshToken", refreshToken, {
+			maxAge: REFRESH_TOKEN_EXIPIRY,
+			httpOnly: true,
+			signed: true,
+			secure: true,
+			sameSite: "none",
+			path: "/",
+		});
 
-	res.cookie("Authorization", `Bearer ${accessToken}`, {
-		maxAge: ACCESS_TOKEN_EXIPIRY,
-		httpOnly: false,
-		signed: true,
-	});
+		res.cookie("Authorization", `Bearer ${accessToken}`, {
+			maxAge: REFRESH_TOKEN_EXIPIRY,
+			httpOnly: false,
+			signed: true,
+			secure: true,
+			sameSite: "none",
+			path: "/",
+		});
+	} else {
+		res.cookie("RefreshToken", refreshToken, {
+			maxAge: REFRESH_TOKEN_EXIPIRY,
+			httpOnly: true,
+			signed: true,
+			secure: false,
+			sameSite: "strict",
+			path: "/",
+		});
 
+		res.cookie("Authorization", `Bearer ${accessToken}`, {
+			maxAge: ACCESS_TOKEN_EXIPIRY,
+			httpOnly: false,
+			signed: true,
+			path: "/",
+			sameSite: "strict",
+			secure: false,
+		});
+	}
 	return;
 };
 
@@ -166,6 +192,7 @@ export const createUser = async (user: UserBody, res: Response) => {
 
 		return newUser;
 	} catch (error: any) {
+		console.log(error);
 		if (error.code === "P2003")
 			throw new CustomError(
 				ReasonPhrases.INTERNAL_SERVER_ERROR,

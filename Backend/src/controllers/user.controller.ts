@@ -28,6 +28,20 @@ export const editUser = async (req: Req, res: Response) => {
 		.status(StatusCodes.CREATED);
 };
 
+export const activeUser = async (req: Req, res: Response) => {
+	const user = await prisma.user.findUnique({
+		where: { id: req.user.id },
+		select: {
+			id: true,
+			username: true,
+			profilePicture: true,
+			email: true,
+			role: true,
+		},
+	});
+	return res.json({ message: "success", data: user }).status(StatusCodes.OK);
+};
+
 export const deleteUser = async (req: Req, res: Response) => {
 	const user = handleDeleteUser(req);
 	return res.json({ message: "success" }).status(StatusCodes.NO_CONTENT);

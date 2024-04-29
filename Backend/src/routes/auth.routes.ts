@@ -1,15 +1,21 @@
 import { Router } from "express";
-import { /* refresh,*/ registerUser, signInUser, signOutUser } from "../controllers/auth.controller";
+import {
+	/* refresh,*/ registerUser,
+	signInUser,
+	signOutUser,
+} from "../controllers/auth.controller";
 import wrapper from "../middlewears/async-wrapper";
+import { activeUser } from "../controllers/user.controller";
+import auth from "../middlewears/auth";
 
-export const authRouter = Router()
+export const authRouter = Router();
 
 /**
  * @swagger
  * /register:
  *   post:
  *     tags:
-   *     - Authentication
+ *     - Authentication
  *     summary: Register a User.
  *     requestBody:
  *       required: true
@@ -50,15 +56,15 @@ export const authRouter = Router()
  *                      type: string
  *                      description: The User's Email.
  *                      example: testemail@gmail.com
-*/
-authRouter.post("/register", wrapper(registerUser))
+ */
+authRouter.post("/register", wrapper(registerUser));
 
- /**
+/**
  * @swagger
  * /login:
  *   post:
  *     tags:
-*     - Authentication
+ *     - Authentication
  *     summary: Sign In a User.
  *     requestBody:
  *       required: true
@@ -95,15 +101,15 @@ authRouter.post("/register", wrapper(registerUser))
  *                      type: string
  *                      description: The User's Email.
  *                      example: testemail@gmail.com
-*/
-authRouter.post("/login", wrapper(signInUser))
-
- /**
+ */
+authRouter.post("/login", wrapper(signInUser));
+authRouter.get("/active", auth, wrapper(activeUser));
+/**
  * @swagger
  * /logout:
  *   post:
  *     tags:
-*     - Authentication
+ *     - Authentication
  *     summary: Sign Out a User.
  *     responses:
  *       204:
@@ -112,7 +118,7 @@ authRouter.post("/login", wrapper(signInUser))
  *           application/json:
  *             schema:
  *               type: object
-*/
-authRouter.post("/logout", wrapper(signOutUser))
+ */
+authRouter.post("/logout", wrapper(signOutUser));
 // ! Don't think we need a specific route dedicated to refreshing tokens anymore.
 // authRouter.post("/refresh", wrapper(refresh))

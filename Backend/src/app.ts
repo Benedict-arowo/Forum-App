@@ -18,6 +18,7 @@ import { gamesRouter } from "./routes/game.routes";
 import { settingRouter } from "./routes/setting.route";
 import { rulesRouter } from "./routes/rule.routes";
 import { bannerRouter } from "./routes/banner.routes";
+import session from "express-session";
 const morgan = require("morgan");
 const cors = require("cors");
 const cloudinary = require("cloudinary").v2;
@@ -32,12 +33,19 @@ cloudinary.config({
 });
 
 const corsOptions = {
-	origin: "http://localhost:3000",
+	origin: ["https://forum-app-rosy.vercel.app", "http://192.168.0.167:3000"],
 	credentials: true,
 };
 
 app.use(morgan("dev"));
 app.use(cors(corsOptions));
+// app.use(
+// 	session({
+// 		secret: process.env.COOKIE_SECRET as string,
+// 		resave: false,
+// 		saveUninitialized: false,
+// 	})
+// );
 app.use(express.json({ limit: "100mb" }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 const specs = swaggerJsdoc(options);

@@ -33,7 +33,7 @@ cloudinary.config({
 });
 
 const corsOptions = {
-	origin: ["https://forum-app-rosy.vercel.app", "192.168.0.167"],
+	origin: ["https://forum-app-rosy.vercel.app", "http://192.168.0.167"],
 	credentials: true,
 };
 

@@ -61,10 +61,11 @@ export const jwt_generator = async (payload: props, res: Response) => {
 	// })
 
 	if (process.env.NODE_ENV?.toString() === "PRODUCTION") {
+		console.log("PRODUCTION");
 		res.cookie("RefreshToken", refreshToken, {
 			maxAge: REFRESH_TOKEN_EXIPIRY,
 			httpOnly: true,
-			signed: true,
+			// signed: true,
 			secure: true,
 			sameSite: "none",
 			path: "/",
@@ -73,14 +74,14 @@ export const jwt_generator = async (payload: props, res: Response) => {
 		res.cookie("Authorization", `Bearer ${accessToken}`, {
 			maxAge: REFRESH_TOKEN_EXIPIRY,
 			httpOnly: true,
-			signed: true,
+			// signed: true,
 			secure: true,
 			sameSite: "none",
 			path: "/",
 		});
 	} else {
 		res.cookie("RefreshToken", refreshToken, {
-			signed: true,
+			// signed: true,
 			httpOnly: true,
 			maxAge: REFRESH_TOKEN_EXIPIRY,
 			path: "/",
@@ -91,7 +92,7 @@ export const jwt_generator = async (payload: props, res: Response) => {
 		res.cookie("Authorization", `Bearer ${accessToken}`, {
 			maxAge: ACCESS_TOKEN_EXIPIRY,
 			httpOnly: false,
-			signed: true,
+			// signed: true,
 			path: "/",
 			sameSite: "strict",
 			secure: false,

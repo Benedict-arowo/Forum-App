@@ -33,7 +33,7 @@ cloudinary.config({
 });
 
 const corsOptions = {
-	origin: ["https://forum-app-rosy.vercel.app", "http://192.168.0.167"],
+	origin: ["https://forum-app-rosy.vercel.app", "http://192.168.0.167:3000"],
 	credentials: true,
 };
 
@@ -47,7 +47,7 @@ app.use(cors(corsOptions));
 // 	})
 // );
 app.use(express.json({ limit: "100mb" }));
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser());
 const specs = swaggerJsdoc(options);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 

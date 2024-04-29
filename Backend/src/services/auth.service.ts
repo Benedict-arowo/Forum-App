@@ -81,18 +81,18 @@ export const jwt_generator = async (payload: props, res: Response) => {
 		});
 	} else {
 		res.cookie("RefreshToken", refreshToken, {
-			// signed: true,
-			httpOnly: true,
 			maxAge: REFRESH_TOKEN_EXIPIRY,
-			path: "/",
-			sameSite: "strict",
+			httpOnly: true,
+			signed: true,
 			secure: false,
+			sameSite: "strict",
+			path: "/",
 		});
 
 		res.cookie("Authorization", `Bearer ${accessToken}`, {
 			maxAge: ACCESS_TOKEN_EXIPIRY,
 			httpOnly: false,
-			// signed: true,
+			signed: true,
 			path: "/",
 			sameSite: "strict",
 			secure: false,

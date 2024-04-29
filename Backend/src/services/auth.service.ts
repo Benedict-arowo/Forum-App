@@ -73,7 +73,7 @@ export const jwt_generator = async (payload: props, res: Response) => {
 
 		res.cookie("Authorization", `Bearer ${accessToken}`, {
 			maxAge: REFRESH_TOKEN_EXIPIRY,
-			httpOnly: true,
+			httpOnly: false,
 			signed: true,
 			secure: true,
 			sameSite: "none",

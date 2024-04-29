@@ -65,9 +65,9 @@ export const jwt_generator = async (payload: props, res: Response) => {
 		res.cookie("RefreshToken", refreshToken, {
 			maxAge: REFRESH_TOKEN_EXIPIRY,
 			httpOnly: true,
-			// signed: true,
-			secure: true,
-			sameSite: "none",
+			signed: true,
+			secure: false,
+			sameSite: "lax",
 			path: "/",
 		});
 
@@ -75,7 +75,7 @@ export const jwt_generator = async (payload: props, res: Response) => {
 			maxAge: REFRESH_TOKEN_EXIPIRY,
 			httpOnly: true,
 			// signed: true,
-			secure: true,
+			secure: false,
 			sameSite: "none",
 			path: "/",
 		});

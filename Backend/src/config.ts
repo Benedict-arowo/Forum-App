@@ -13,7 +13,7 @@ export const REFRESH_TOKEN_EXIPIRY = 1000 * 60 * 60 * 24 * 30; // 30 days
 export const DEFAULT_ROLE_ID = "264ed4b4-9312-4766-9c7d-47f8f0ebecd1";
 export const ANNOUNCEMENT_CATEGORY_ID = "d0ed3d28-bbe4-4e61-b473-cb0dd2257861";
 export const DEFAULT_PROFILE_PICTURE =
-	"https://res.cloudinary.com/dm5kc3cci/image/upload/v1672654883/User-128_z1uuhq.png";
+	"https://res.cloudinary.com/dctbkswpr/image/upload/v1717502557/samples/cloudinary-icon.png";
 export const ADMIN_ROLE_ID = "10b932a3-b8dd-4fc2-82b8-862bdef143bb";
 
 export const UPDATES_CATEGORY_ID = "6979a8a2-90cf-4a49-b28b-22bb8cbb1acf";
